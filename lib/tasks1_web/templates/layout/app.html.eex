@@ -6,28 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <!--
+      Add redirect functionality later.
+    <meta http-equiv="refresh" content="1; URL=/">
+    <meta name="keywords" content="automatic redirection">
+    -->
     <title>Task Tracker1</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
-
+  
   <body>
+
     <ul class="menubar">
       <li><span>Task Tracker</span></li>
-      <li><a href="/tasks">Task List</a></li>
-      <li><a href="/users">User List</a></li>
-      <li>
-          <div class="col-4 offset-9">
-            <%= if @current_user do %>
-              <div style="color: white;">
-                Logged in as: <%= @current_user.name %> |
-                <%= link "Log Out", to: "/session", method: :delete %>
-              </div>
-            <% else %>
-              <div>Not logged in.</div>
-            <% end %>
-          </div>
-      </li>
+      <%= if @current_user do %>
+        <li><a href="/tasks">Task List</a></li>
+        <li><a href="/users">User List</a></li>
+        <li>
+            <div class="col-4 offset-9">
+              <%= if @current_user do %>
+                <div style="color: white;">
+                  Logged in as: <%= @current_user.name %> |
+                </div>
+              <% else %>
+                <div>Not logged in.</div>
+              <% end %>
+            </div>
+        </li>
+      <% else %>
+        <div class="col-3 offset-9">
+          <p>Not logged in.</p>
+        </div>
+      <% end %>
+      
+      <%= if @current_user do %>
+        <li style="background-color: #262626;">
+          <%= link "Log Out", to: "/session", method: :delete %>
+        </li>
+      <% else %>
+        <li>
+          <p style="width: 10px; height: 10px;"></p>
+        </li>
+      <% end %>
     </ul>
 
     <div class="container">
